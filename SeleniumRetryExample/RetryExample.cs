@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using OpenQA.Selenium;
 
 namespace SeleniumRetryExample
@@ -7,11 +8,12 @@ namespace SeleniumRetryExample
   {
     public static void AttemptToPerformAction(this IWebElement element, Action action, int numberOfTimesToRetry = 3, int secondsBetweenRetries = 5)
     {
-      for (var attempt = 0; attempt <= numberOfTimesToRetry ; attempt++)
+      for (var attempt = 1; attempt <= numberOfTimesToRetry ; attempt++)
       {
         try
         {
           action();
+          Thread.Sleep(secondsBetweenRetries);
         }
         catch
         {
